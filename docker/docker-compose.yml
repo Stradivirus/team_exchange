@@ -7,7 +7,7 @@ services:
   backend:
     container_name: exchange-backend
     build:
-      context: .
+      context: ..
       dockerfile: ./docker/backend/Dockerfile
     # ports:
     #   - "8081:8080"
@@ -20,7 +20,7 @@ services:
   frontend:
     container_name: exchange-frontend
     build:
-      context: .
+      context: ..
       dockerfile: ./docker/frontend/Dockerfile
     ports:
       - "8005:80"        # 외부 접속용 (기존 유지)
