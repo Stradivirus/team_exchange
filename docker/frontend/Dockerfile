@@ -3,14 +3,14 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # 패키지 먼저 복사 → 캐시 최적화
-COPY package*.json ./
+COPY frontend/package*.json ./
 RUN npm ci
 
 # ✅ .env 파일 복사
-COPY .env .env
+COPY frontend/.env .env
 
 # 소스 복사 후 빌드
-COPY . .
+COPY ./frontend .
 
 # ✅ VITE용 환경변수 확인 로그 (디버깅용)
 RUN cat .env
@@ -25,8 +25,8 @@ WORKDIR /usr/share/nginx/html
 # ✅ 빌드 결과 복사
 COPY --from=build /app/dist ./
 
-# ✅ Nginx 설정 복사
-COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+# ✅ Nginx 설정 복사 (새로운 경로로 수정)
+COPY docker/frontend/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=3s \

@@ -6,8 +6,8 @@ WORKDIR /workspace
 VOLUME ["/root/.gradle"]
 
 # ✅ Gradle wrapper & 설정 파일 복사 (캐시 hit을 위해 소스보다 먼저)
-COPY gradlew settings.gradle build.gradle ./
-COPY gradle ./gradle
+COPY backend/gradlew backend/settings.gradle backend/build.gradle ./
+COPY backend/gradle ./gradle
 
 # ✅ CRLF 제거 + 실행 권한
 RUN sed -i 's/\r$//' gradlew && chmod +x gradlew
@@ -16,7 +16,7 @@ RUN sed -i 's/\r$//' gradlew && chmod +x gradlew
 RUN ./gradlew dependencies --no-daemon || return 0
 
 # ✅ 소스 복사 (이후 변경돼도 위 캐시는 유지)
-COPY src ./src
+COPY backend/src ./src
 
 # ✅ 테스트는 스킵하고 빌드만 수행
 RUN ./gradlew clean bootJar -x test --no-daemon

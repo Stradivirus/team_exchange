@@ -5,12 +5,12 @@ services:
   # Backend (Spring Boot)
   # ─────────────────────────────
   backend:
-    container_name: app-staging-backend
+    container_name: exchange-backend
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
     # ports:
-    #   - "8081:8080"      
+    #   - "8081:8080"
     networks:
       - appnet
 
@@ -18,10 +18,10 @@ services:
   # Frontend (Vite + Nginx)
   # ─────────────────────────────
   frontend:
-    container_name: app-staging-frontend
+    container_name: exchange-frontend
     build:
-      context: ./frontend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ./docker/frontend/Dockerfile
     ports:
       - "8005:80"        # 외부 접속용 (기존 유지)
     depends_on:
