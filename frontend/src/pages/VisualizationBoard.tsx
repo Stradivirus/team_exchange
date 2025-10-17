@@ -22,7 +22,7 @@ export default function VisualizationBoardPage(props: Props) {
                     {/* 좌측: 차트/통계 영역 */}
                     <div className={styles.card}>
                         <div className={styles.cardHeader}>
-                            <h2>Statistics</h2>
+                            <h2>상태</h2>
                         </div>
 
                         {/* 탭 */}
