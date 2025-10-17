@@ -17,8 +17,6 @@ import com.mbccurrency.dto.StockDto;
 import com.mbccurrency.entity.Stock;
 import com.mbccurrency.service.StockService;
 
-import lombok.RequiredArgsConstructor;
-
 @RestController
 @RequestMapping("/api/stock")
 public class StockController {

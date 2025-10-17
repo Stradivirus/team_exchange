@@ -2,7 +2,6 @@
 package com.mbccurrency.repository.jpa;
 
 import com.mbccurrency.entity.Commodities;
-import com.mbccurrency.entity.Grains;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

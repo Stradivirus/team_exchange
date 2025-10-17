@@ -2,12 +2,6 @@ package com.mbccurrency.dto;
 
 import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 public class ExchangeRateDto {
     private LocalDate date;
     private Double usd;

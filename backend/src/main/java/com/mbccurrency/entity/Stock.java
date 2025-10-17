@@ -2,7 +2,6 @@
 package com.mbccurrency.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDate;
 
 @Entity @Table(name = "stock")
