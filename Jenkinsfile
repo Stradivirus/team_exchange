@@ -24,11 +24,12 @@ pipeline {
 
                     echo "Changed files: ${changedFiles}"
 
-                    env.FRONTEND_CHANGED = changedFiles.contains('frontend/') ? 'true' : 'false'
-                    // backend 변경 감지 로직 활성화
-                    env.BACKEND_CHANGED = changedFiles.contains('backend/') ? 'true' : 'false'
+                    // 변경 감지 경로를 새로운 폴더 구조에 맞게 수정
+                    env.FRONTEND_CHANGED = changedFiles.contains('frontend/') || changedFiles.contains('docker/frontend/') ? 'true' : 'false'
+                    env.BACKEND_CHANGED = changedFiles.contains('backend/') || changedFiles.contains('docker/backend/') ? 'true' : 'false'
                     
-                    env.FULL_REBUILD = changedFiles.contains('docker-compose') ? 'true' : 'false'
+                    // docker-compose 파일 변경 감지 경로 수정
+                    env.FULL_REBUILD = changedFiles.contains('docker/docker-compose') ? 'true' : 'false'
 
                     echo "Frontend changed: ${env.FRONTEND_CHANGED}"
                     echo "Backend changed: ${env.BACKEND_CHANGED}"
@@ -48,15 +49,14 @@ pipeline {
                     }
                     steps {
                         echo 'Rebuilding and Deploying Frontend...'
+                        // docker-compose 파일 경로 수정
                         sh '''
-                            docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml build frontend
-                            # --no-deps 옵션을 제거하여 의존성 있는 서비스도 함께 실행하도록 수정
-                            docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml up -d frontend
+                            docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml build frontend
+                            docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml up -d frontend
                         '''
                     }
                 }
 
-                // backend 배포 스테이지 활성화
                 stage('Deploy Backend') {
                     when {
                         anyOf {
@@ -66,10 +66,10 @@ pipeline {
                     }
                     steps {
                         echo 'Rebuilding and Deploying Backend...'
+                        // docker-compose 파일 경로 수정
                         sh '''
-                            docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml build backend
-                            # --no-deps 옵션을 제거하여 일관성 유지
-                            docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml up -d backend
+                            docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml build backend
+                            docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml up -d backend
                         '''
                     }
                 }
@@ -80,15 +80,16 @@ pipeline {
     post {
         always {
             echo 'Deployment process finished. Current status:'
-            sh 'docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml ps'
+            // docker-compose 파일 경로 수정
+            sh 'docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml ps'
         }
         failure {
             echo 'Deployment failed. Showing last 200 lines of logs.'
-            sh 'docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml logs --no-color | tail -n 200 || true'
+            // docker-compose 파일 경로 수정
+            sh 'docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml logs --no-color | tail -n 200 || true'
         }
         success {
             echo 'Deployment successful.'
         }
     }
 }
-
