@@ -1,5 +1,5 @@
 pipeline {
-    agent { node { label 'master' } }
+    agent { node { label 'built-in' } }
 
     triggers {
         pollSCM('H/15 * * * *')
