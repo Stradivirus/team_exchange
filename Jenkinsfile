@@ -2,18 +2,6 @@ pipeline {
   agent any
 
   stages {
-
-    stage('Pre-clean') {
-      steps {
-        echo '🧹 Cleaning up old containers & networks...'
-        sh '''
-          docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml down --remove-orphans || true
-          docker system prune -af || true
-          docker network prune -f || true
-        '''
-      }
-    }
-
     stage('Build frontend (cache stage)') {
       steps {
         echo '🧱 Building cached frontend build stage...'
@@ -36,21 +24,11 @@ pipeline {
     }
 
     stage('Deploy to STAGING') {
-      when { branch 'develop' }
+      when { branch 'master' }
       steps {
         echo '🚀 Deploying to STAGING environment...'
         sh '''
           docker compose -p app-staging -f docker-compose.yml -f docker-compose.staging.yml up -d
-        '''
-      }
-    }
-
-    stage('Feature branch build test') {
-      when { expression { env.BRANCH_NAME.startsWith('feature/') } }
-      steps {
-        echo '🧩 Feature branch detected — build test only (no deploy).'
-        sh '''
-          docker compose -f docker-compose.yml build
         '''
       }
     }
