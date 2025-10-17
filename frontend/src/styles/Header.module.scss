@@ -1,0 +1,30 @@
+.header {
+    color: #fff;
+    padding: 12px 16px 12px 0;
+}
+
+.dateRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #ddd;
+}
+
+.icon {
+    color: #fff;
+}
+
+.title {
+    margin: 6px 0;
+    text-align: left;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.divider {
+    border: none;
+    border-bottom: 1px solid #fff;
+    opacity: 0.5;
+    margin: 0;
+}

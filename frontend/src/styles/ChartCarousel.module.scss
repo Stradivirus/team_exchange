@@ -1,0 +1,85 @@
+/* src/components/common/ChartCarousel/ChartCarousel.module.scss */
+@use "@/styles/variables" as *;
+
+.carousel {
+    position: relative;
+    outline: none;
+    height: 100%;
+}
+
+// .viewport {
+//     position: relative;
+//     margin-top: 10px;
+//     min-height: 0;
+//     height: 90%;
+//     overflow: hidden;
+//     border-radius: 10px;
+//     background: linear-gradient(180deg, #f9f9ff, #f1f2ff);
+//     border: 1px dashed #cfcfe6;
+// }
+
+.viewport {
+  position: relative;
+  margin-top: 10px;
+  min-height: 0;
+
+  /* ✅ 높이는 자동으로 차트 크기에 맞게 */
+  height: 90%;
+
+  /* ✅ 차트가 이벤트 처리 가능하도록 */
+  overflow: visible;
+
+  border-radius: 10px;
+  background: linear-gradient(180deg, #f9f9ff, #f1f2ff);
+  border: 1px dashed #cfcfe6;
+
+  /* ✅ z-index를 낮게 유지해서 내부 차트 위에 안 올라오게 */
+  z-index: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* ✅ 비활성 슬라이드는 클릭 이벤트 막기 */
+  pointer-events: none;
+  z-index: 0;
+}
+
+.active {
+  opacity: 1;
+//   position: relative;
+  pointer-events: auto; /* ✅ 활성 슬라이드만 클릭 가능 */
+  z-index: 2;           /* ✅ 위로 올리기 */
+}
+
+
+.pagination {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: #cfcfe6;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.dotActive {
+    background: $color-primary;
+}

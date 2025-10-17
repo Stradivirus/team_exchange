@@ -1,0 +1,184 @@
+.insightCard {
+    .cardHeader {
+        margin-bottom: 20px;
+
+        h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #212529;
+        }
+    }
+
+    .cardBody {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ✅ 모던한 탭 스타일 */
+    .tabs {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 24px;
+        background: #f7f6fb;
+        padding: 4px;
+        border-radius: 10px;
+        border: 1px solid #e9ecef;
+    }
+
+    .tab {
+        flex: 1;
+        padding: 10px 16px;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        color: #6c757d;
+        font-weight: 600;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.03);
+        }
+
+        &.active {
+            background: #ffffff;
+            color: #495057;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+    }
+
+    .insightContent {
+        display: none;
+        animation: fadeIn 0.3s ease-out;
+
+        &.active {
+            display: block;
+        }
+    }
+
+    /* ✅ 세련된 인사이트 카드 */
+    .insightItem {
+        display: flex;
+        gap: 14px;
+        padding: 16px;
+        background: #f7f6fb;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        border-left: 3px solid #6c757d;
+        transition: all 0.2s;
+
+        &:hover {
+            background: #f1f0f8;
+            transform: translateX(2px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+    }
+
+    .insightIcon {
+        font-size: 22px;
+        min-width: 28px;
+        line-height: 1.4;
+        flex-shrink: 0;
+    }
+
+    .insightText {
+        flex: 1;
+        line-height: 1.6;
+        color: #495057;
+        font-size: 14px;
+
+        strong {
+            color: #212529;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+    }
+
+    /* ✅ 액션 포인트 체크리스트 */
+    .actionItem {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        background: #ffffff;
+        border-radius: 10px;
+        margin-bottom: 8px;
+        border: 1px solid #e9ecef;
+        transition: all 0.2s;
+        cursor: pointer;
+
+        &:hover {
+            border-color: #dee2e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        &.completed .actionText {
+            color: #adb5bd;
+            text-decoration: line-through;
+        }
+    }
+
+    .actionCheckbox {
+        width: 18px;
+        height: 18px;
+        border-radius: 4px;
+        border: 2px solid #dee2e6;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s;
+        flex-shrink: 0;
+
+        .actionItem:hover & {
+            border-color: #6c757d;
+        }
+
+        &.checked {
+            background: #495057;
+            border-color: #495057;
+
+            &::after {
+                content: "✓";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: white;
+                font-size: 12px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .actionText {
+        flex: 1;
+        color: #495057;
+        font-weight: 500;
+        font-size: 14px;
+        transition: color 0.2s;
+    }
+
+    .empty {
+        text-align: center;
+        color: #6c757d;
+        padding: 40px 20px;
+        font-size: 14px;
+    }
+
+    .desc {
+        white-space: pre-line;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

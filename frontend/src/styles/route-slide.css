@@ -1,0 +1,5 @@
+/* route-slide.css */
+.slide-enter   { opacity: 0; transform: translateY(10%); }
+.slide-enter-active { opacity: 1; transform: translateY(0); transition: transform .4s ease, opacity .4s ease; }
+.slide-exit    { opacity: 1; transform: translateY(0); }
+.slide-exit-active   { opacity: 0; transform: translateY(-10%); transition: transform .4s ease, opacity .4s ease; }

@@ -1,0 +1,25 @@
+.toggle {
+    outline: none !important;
+    min-width: 60px;
+    padding: 6px 15px;
+    border: 1px solid $color-primary;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease;
+
+    &:hover {
+        opacity: 0.5;
+    }
+
+    &.on {
+        background-color: $color-primary;
+        color: $color-textprimary;
+    }
+
+    &.off {
+        color: $color-primary;
+    }
+}
+

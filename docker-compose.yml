@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  # ─────────────────────────────
+  # Backend (Spring Boot)
+  # ─────────────────────────────
+  backend:
+    container_name: app-staging-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"      
+    networks:
+      - appnet
+
+  # ─────────────────────────────
+  # Frontend (Vite + Nginx)
+  # ─────────────────────────────
+  frontend:
+    container_name: app-staging-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8005:80"        # 외부 접속용 (기존 유지)
+    depends_on:
+      - backend
+    networks:
+      - appnet
+
+# ─────────────────────────────
+# Networks & Volumes
+# ─────────────────────────────
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  pgdata:
+  mongodata:

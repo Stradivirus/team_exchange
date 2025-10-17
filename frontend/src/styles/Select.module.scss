@@ -1,0 +1,104 @@
+.trigger {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background: $color-light;
+    color: #222;
+    font-weight: 600;
+    cursor: pointer;
+    transition: border .2s ease, box-shadow .2s ease, background .2s ease;
+    min-width: 120px;
+
+    &:hover {
+        border-color: $color-primary;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 3px rgba(108, 99, 255, .2);
+    }
+
+    &[data-disabled] {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+}
+
+.chevron {
+    display: inline-flex;
+    color: #666;
+}
+
+/* Dropdown */
+.content {
+    background: #fff;
+    color: #111;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.viewport {
+    padding: 6px;
+    max-height: 260px;
+    /* 필요 시 조절 */
+}
+
+.item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 32px 8px 10px;
+    /* 오른쪽 체크 아이콘 자리 */
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 600;
+    color: #333;
+
+    &:hover {
+        background: #f4f4fe;
+    }
+
+    &[data-highlighted] {
+        outline: none;
+        background: #eef0ff;
+    }
+
+    &[data-state="checked"] {
+        background: rgba($color-primary, 0.08);
+        color: $color-primary;
+    }
+
+    &[data-disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+}
+
+.indicator {
+    position: absolute;
+    right: 8px;
+    color: $color-primary;
+}
+
+/* 스크롤 버튼 */
+.scrollBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    color: #666;
+    background: #fafafa;
+}

@@ -1,0 +1,7 @@
+services:
+  frontend:
+    ports:
+      - "8005:80"      # 운영은 8005
+  backend:
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
