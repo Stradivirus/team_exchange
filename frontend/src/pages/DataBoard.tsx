@@ -86,7 +86,7 @@ export default function DataBoardPage({ className }: Props) {
       <main className={`${styles.content} ${dataStyles.unifiedLayout}`}>
         <div className={`${styles.card} ${dataStyles.card}`}>
           <div className={styles.cardHeader}>
-            <h2>Datas & Graphs</h2>
+            <h2>Datas&Graphs</h2>
           </div>
 
           <div className={dataStyles.chartArea}>

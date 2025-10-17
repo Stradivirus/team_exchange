@@ -3,9 +3,7 @@ package com.mbccurrency.controller;
 
 import com.mbccurrency.entity.CommoditiesIndex;
 import com.mbccurrency.service.CommoditiesIndexService;
-import com.mbccurrency.service.ExchangeService;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
