@@ -16,7 +16,7 @@ export default function Main() {
                             <Link to="/databoard">Datas</Link>
                         </button>
                         <button className={styles.navButton}>
-                            <Link to="/visualizationboard/S&P500">Visualization</Link>
+                            <Link to="/visualizationboard/S&P500">시각화</Link>
                         </button>
                         {/* <button className={styles.navButton}>
                             <Link to="/insightsboard">Insight</Link>

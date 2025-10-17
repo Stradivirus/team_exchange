@@ -4,7 +4,6 @@ package com.mbccurrency.service;
 import com.mbccurrency.entity.Pca;
 import com.mbccurrency.repository.jpa.PcaRepository;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
