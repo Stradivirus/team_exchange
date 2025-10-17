@@ -24,16 +24,32 @@ pipeline {
 
                     echo "Changed files: ${changedFiles}"
 
-                    // 변경 감지 경로를 새로운 폴더 구조에 맞게 수정
-                    env.FRONTEND_CHANGED = changedFiles.contains('frontend/') || changedFiles.contains('docker/frontend/') ? 'true' : 'false'
-                    env.BACKEND_CHANGED = changedFiles.contains('backend/') || changedFiles.contains('docker/backend/') ? 'true' : 'false'
-                    
-                    // docker-compose 파일 변경 감지 경로 수정
-                    env.FULL_REBUILD = changedFiles.contains('docker/docker-compose') ? 'true' : 'false'
+                    def rebuildFrontend = false
+                    def rebuildBackend = false
 
-                    echo "Frontend changed: ${env.FRONTEND_CHANGED}"
-                    echo "Backend changed: ${env.BACKEND_CHANGED}"
-                    echo "Full rebuild needed: ${env.FULL_REBUILD}"
+                    // docker/ 폴더가 변경되면 frontend와 backend 모두 재빌드
+                    if (changedFiles.contains('docker/')) {
+                        echo "Docker folder changed, triggering full rebuild."
+                        rebuildFrontend = true
+                        rebuildBackend = true
+                    } else {
+                        // frontend/ 폴더가 변경되면 frontend만 재빌드
+                        if (changedFiles.contains('frontend/')) {
+                            echo "Frontend folder changed, triggering frontend rebuild."
+                            rebuildFrontend = true
+                        }
+                        // backend/ 폴더가 변경되면 backend만 재빌드
+                        if (changedFiles.contains('backend/')) {
+                            echo "Backend folder changed, triggering backend rebuild."
+                            rebuildBackend = true
+                        }
+                    }
+
+                    env.FRONTEND_CHANGED = rebuildFrontend.toString()
+                    env.BACKEND_CHANGED = rebuildBackend.toString()
+
+                    echo "Frontend rebuild needed: ${env.FRONTEND_CHANGED}"
+                    echo "Backend rebuild needed: ${env.BACKEND_CHANGED}"
                 }
             }
         }
@@ -42,14 +58,11 @@ pipeline {
             parallel {
                 stage('Deploy Frontend') {
                     when {
-                        anyOf {
-                            environment name: 'FRONTEND_CHANGED', value: 'true'
-                            environment name: 'FULL_REBUILD', value: 'true'
-                        }
+                        // FRONTEND_CHANGED가 'true'일 때만 실행
+                        environment name: 'FRONTEND_CHANGED', value: 'true'
                     }
                     steps {
                         echo 'Rebuilding and Deploying Frontend...'
-                        // docker-compose 파일 경로 수정
                         sh '''
                             docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml build frontend
                             docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml up -d frontend
@@ -59,14 +72,11 @@ pipeline {
 
                 stage('Deploy Backend') {
                     when {
-                        anyOf {
-                            environment name: 'BACKEND_CHANGED', value: 'true'
-                            environment name: 'FULL_REBUILD', value: 'true'
-                        }
+                        // BACKEND_CHANGED가 'true'일 때만 실행
+                        environment name: 'BACKEND_CHANGED', value: 'true'
                     }
                     steps {
                         echo 'Rebuilding and Deploying Backend...'
-                        // docker-compose 파일 경로 수정
                         sh '''
                             docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml build backend
                             docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml up -d backend
@@ -80,12 +90,10 @@ pipeline {
     post {
         always {
             echo 'Deployment process finished. Current status:'
-            // docker-compose 파일 경로 수정
             sh 'docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml ps'
         }
         failure {
             echo 'Deployment failed. Showing last 200 lines of logs.'
-            // docker-compose 파일 경로 수정
             sh 'docker compose -p app-staging -f docker/docker-compose.yml -f docker/docker-compose.staging.yml logs --no-color | tail -n 200 || true'
         }
         success {
@@ -93,3 +101,4 @@ pipeline {
         }
     }
 }
+
