@@ -29,7 +29,7 @@ const CurrencyCalculator: React.FC = () => {
     const rates: Record<string, number> = {
       USD: latest.usd || 1,
       EUR: latest.eur || 1,
-      JPY: (latest.jpy || 900) / 100,
+      JPY: latest.jpy / 100,
       KRW: 1
     };
 
