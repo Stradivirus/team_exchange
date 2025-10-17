@@ -2,6 +2,15 @@ pipeline {
   agent any
 
   stages {
+    stage('Checkout') {
+      steps {
+        echo '🔄 Checking out the master branch...'
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']],
+          userRemoteConfigs: [[url: 'https://github.com/Stradivirus/team_exchange', credentialsId: 'git']]
+        ])
+      }
+    }
+
     stage('Build frontend (cache stage)') {
       steps {
         echo '🧱 Building cached frontend build stage...'
