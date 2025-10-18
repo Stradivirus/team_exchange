@@ -3,7 +3,6 @@ package com.mbccurrency.controller;
 
 import com.mbccurrency.entity.InterestRate;
 import com.mbccurrency.service.InterestRateService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;

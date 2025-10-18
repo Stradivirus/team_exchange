@@ -2,7 +2,6 @@ package com.mbccurrency.controller;
 
 import com.mbccurrency.entity.NewsSentiment;
 import com.mbccurrency.service.NewsSentimentService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
