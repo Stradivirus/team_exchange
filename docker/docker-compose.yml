@@ -23,7 +23,7 @@ services:
       context: ..
       dockerfile: ./docker/frontend/Dockerfile
     ports:
-      - "8005:80"        # 외부 접속용 (기존 유지)
+      - "8006:80"        # 외부 접속용 (기존 유지)
     depends_on:
       - backend
     networks:

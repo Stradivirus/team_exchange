@@ -1,7 +1,0 @@
-services:
-  frontend:
-    ports:
-      - "8006:80"      # 스테이징은 8006 (운영과 포트 분리)
-  backend:
-    environment:
-      - SPRING_PROFILES_ACTIVE=staging
